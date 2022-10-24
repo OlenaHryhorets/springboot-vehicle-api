@@ -1,5 +1,7 @@
 # Spring Boot Vehicle API
 
+## Simple Example for Open API  Spring Boot project for managing vehicles
+
 ### Documentation
 For further reference, please consider the following sections:
 
