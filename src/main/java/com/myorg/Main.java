@@ -1,4 +1,4 @@
-package org.mystudy;
+package com.myorg;
 
 public class Main {
     public static void main(String[] args) {

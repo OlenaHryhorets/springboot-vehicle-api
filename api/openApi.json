@@ -1,0 +1,203 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Vehicle API Service",
+    "version": "1.0",
+    "description": "Microservice fetching Vehicle Details API",
+    "contact": {
+      "name": "Olena Hryhorets",
+      "email": "olena.hryhorets@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "vehicle",
+      "description": "vehicle details"
+    }
+  ],
+  "paths": {
+    "/api/v1/vehicle": {
+      "get": {
+        "tags": [
+          "vehicle"
+        ],
+        "summary": "Get all vehicles",
+        "description": "",
+        "operationId": "getAllVehicles",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/requestBodies/VehicleArray"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/requestBodies/VehicleArray"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/v1/vehicle/{id}": {
+      "get": {
+        "tags": [
+          "vehicle"
+        ],
+        "summary": "Get vehicle by id",
+        "description": "",
+        "operationId": "getVehicleById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use 111 for testing. ",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Vehicle not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Vehicle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "title": {
+            "type": "string",
+            "example": "Jaguar"
+          },
+          "model": {
+            "type": "string",
+            "example": "I-Pace"
+          },
+          "type": {
+            "type": "string",
+            "example": "Hybrid"
+          },
+          "millage": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1200
+          },
+          "volume": {
+            "type": "number",
+            "format": "float",
+            "example": 1.20
+          },
+          "color": {
+            "type": "string",
+            "example": "white"
+          },
+          "locale": {
+            "type": "string",
+            "example": "en-GB"
+          },
+          "registrationCountry": {
+            "type": "string",
+            "example": "UK"
+          }
+        },
+        "xml": {
+          "name": "vehicle"
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      }
+    },
+    "requestBodies": {
+      "VehicleArray": {
+        "description": "List of vehicle object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Vehicle"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "user_store_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://localhost:8080/oauth/authorize",
+            "scopes": {
+              "write:vehicle": "modify vehicle details",
+              "read:vehicle": "read details"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}
