@@ -124,18 +124,9 @@
             "format": "int64",
             "example": 1200
           },
-          "volume": {
-            "type": "number",
-            "format": "float",
-            "example": 1.20
-          },
           "color": {
             "type": "string",
             "example": "white"
-          },
-          "locale": {
-            "type": "string",
-            "example": "en-GB"
           },
           "registrationCountry": {
             "type": "string",
