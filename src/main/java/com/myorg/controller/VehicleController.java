@@ -37,19 +37,29 @@ public class VehicleController {
   }
 
   @PostMapping("/save")
-  public void saveVehicle(@RequestBody Vehicle vehicle) {
-    vehicleService.saveVehicle(vehicle);
+  public ResponseEntity<?> saveVehicle(@RequestBody Vehicle vehicle) {
+    ResponseEntity<?> response = new ResponseEntity<>(HttpStatus.CREATED);
+    try {
+      vehicleService.saveVehicle(vehicle);
+      return response;
+    } catch (Exception e) {
+      response = new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+      return response;
+    }
   }
 
   @PutMapping("/update/{id}")
   public ResponseEntity<?> updateVehicle(@RequestBody Vehicle vehicle, @PathVariable Integer id) {
+    ResponseEntity<?> response = new ResponseEntity<>(HttpStatus.OK);
     try {
       Optional<Vehicle> existVehicle = vehicleService.getVehicleById(id);
       vehicle.setId(id);
+      System.out.println("====>>>>>" + vehicle.getType());
       vehicleService.saveVehicle(vehicle);
-      return new ResponseEntity<>(HttpStatus.OK);
+      return response;
     } catch (NoSuchElementException e) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return response;
     }
   }
 
