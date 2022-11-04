@@ -6,7 +6,57 @@ servers:
   - url: http://localhost:8080
     description: Generated server url
 paths:
-  /api/v1/vehicle/update/{id}:
+  /api/v1/vehicle:
+    get:
+      tags:
+        - vehicle-controller
+      operationId: getAllVehicles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+    post:
+      tags:
+        - vehicle-controller
+      operationId: saveVehicle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vehicle'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+
+  /api/v1/vehicle/{id}:
+    get:
+      tags:
+        - vehicle-controller
+      operationId: getVehicleById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Vehicle'
     put:
       tags:
         - vehicle-controller
@@ -31,58 +81,6 @@ paths:
             '*/*':
               schema:
                 type: object
-  /api/v1/vehicle/save:
-    post:
-      tags:
-        - vehicle-controller
-      operationId: saveVehicle
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Vehicle'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
-  /api/v1/vehicle:
-    get:
-      tags:
-        - vehicle-controller
-      operationId: getAllVehicles
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Vehicle'
-  /api/v1/vehicle/{id}:
-    get:
-      tags:
-        - vehicle-controller
-      operationId: getVehicleById
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Vehicle'
-  /api/v1/vehicle/delete/{id}:
     delete:
       tags:
         - vehicle-controller

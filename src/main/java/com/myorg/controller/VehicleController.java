@@ -36,7 +36,7 @@ public class VehicleController {
     return vehicleService.getVehicleById(id);
   }
 
-  @PostMapping("/save")
+  @PostMapping("")
   public ResponseEntity<?> saveVehicle(@RequestBody Vehicle vehicle) {
     ResponseEntity<?> response = new ResponseEntity<>(HttpStatus.CREATED);
     try {
@@ -48,13 +48,12 @@ public class VehicleController {
     }
   }
 
-  @PutMapping("/update/{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<?> updateVehicle(@RequestBody Vehicle vehicle, @PathVariable Integer id) {
     ResponseEntity<?> response = new ResponseEntity<>(HttpStatus.OK);
     try {
       Optional<Vehicle> existVehicle = vehicleService.getVehicleById(id);
       vehicle.setId(id);
-      System.out.println("====>>>>>" + vehicle.getType());
       vehicleService.saveVehicle(vehicle);
       return response;
     } catch (NoSuchElementException e) {
@@ -63,7 +62,7 @@ public class VehicleController {
     }
   }
 
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/{id}")
   public void deleteVehicleById(@PathVariable Integer id) {
     vehicleService.deleteVehicleById(id);
   }
