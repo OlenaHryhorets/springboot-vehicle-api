@@ -5,7 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "vehicle")
 public class Vehicle {
@@ -16,21 +20,6 @@ public class Vehicle {
   private int millage;
   private String color;
   private String registrationCountry;
-
-
-  public Vehicle() {
-  }
-
-  public Vehicle(int id, String title, String model, String type, int millage,
-                 String color, String registrationCountry) {
-    this.id = id;
-    this.title = title;
-    this.model = model;
-    this.type = type;
-    this.millage = millage;
-    this.color = color;
-    this.registrationCountry = registrationCountry;
-  }
 
   public String getTitle() {
     return title;
