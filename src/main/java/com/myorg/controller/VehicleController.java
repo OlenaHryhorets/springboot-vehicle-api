@@ -1,6 +1,7 @@
 package com.myorg.controller;
 
 import com.myorg.model.Vehicle;
+import com.myorg.service.UserService;
 import com.myorg.service.VehicleService;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -15,20 +16,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.webjars.NotFoundException;
 
 @RestController
 @RequestMapping(value =  "api/v1/vehicle")
 public class VehicleController {
 
   private final VehicleService vehicleService;
+  private final UserService userService;
 
-  public VehicleController(VehicleService vehicleService) {
+  public VehicleController(VehicleService vehicleService, UserService userService) {
     this.vehicleService = vehicleService;
+    this.userService = userService;
   }
 
   @GetMapping("")
   public List<Vehicle> getAllVehicles() {
     return vehicleService.getAllVehicles();
+  }
+
+  @GetMapping("/user/{id}")
+  public ResponseEntity<List<Vehicle>> getAllVehiclesByUserId(@PathVariable(value = "id") int userId) {
+    if (!userService.existsById(userId)) {
+      throw new NotFoundException("Not found user with id = " + userId);
+    }
+    List<Vehicle> userCars = vehicleService.getAllVehiclesByUserId(userId);
+    return new ResponseEntity<>(userCars, HttpStatus.OK);
   }
 
   @GetMapping("/{id}")

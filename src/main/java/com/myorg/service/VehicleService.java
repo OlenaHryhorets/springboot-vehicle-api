@@ -20,6 +20,10 @@ public class VehicleService {
     return vehicleRepository.findAll();
   }
 
+  public List<Vehicle> getAllVehiclesByUserId(int userId) {
+    return vehicleRepository.findVehiclesByUserId(userId);
+  }
+
   public Optional<Vehicle> getVehicleById(Integer id) {
     return vehicleRepository.findById(id);
   }

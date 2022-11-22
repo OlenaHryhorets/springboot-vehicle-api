@@ -1,7 +1,9 @@
 package com.myorg.model;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +20,7 @@ public class User {
   private String firstName;
   private String lastName;
   private String username;
+
+//  @OneToMany(mappedBy = "user")
 //  private List<Vehicle> userCars;
 }
